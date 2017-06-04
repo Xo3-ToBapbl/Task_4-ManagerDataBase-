@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("ManagerDataBase.BL")]
+[assembly: AssemblyTitle("ManagerDataBase.DAL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ManagerDataBase.BL")]
+[assembly: AssemblyProduct("ManagerDataBase.DAL")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("a9213984-15d4-4b56-bc6f-14f98deae027")]
+[assembly: Guid("8f459960-efa1-4a65-b757-a6a78982247f")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

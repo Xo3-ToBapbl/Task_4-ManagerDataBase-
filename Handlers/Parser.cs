@@ -17,14 +17,17 @@ namespace ManagerDataBase.BL
         {
             try
             {
-                StreamReader _reader = new StreamReader(filePath);
+                _reader = new StreamReader(filePath);
                 string currentLine = _reader.ReadLine();
-                while(currentLine != null)
+
+                Console.WriteLine("File name: {0}", Path.GetFileName(filePath));
+                while (currentLine != null)
                 {
                     string[] sailesInfo = currentLine.Split(';');
                     Console.WriteLine(string.Join(" ", sailesInfo));
                     currentLine = _reader.ReadLine();
                 }
+                Console.WriteLine("\n");
             }
             catch (Exception e)
             {
