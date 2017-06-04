@@ -19,7 +19,7 @@ namespace ConsoleApplication
         {
             #region Path
             string currentDirectoryPath = Path.GetDirectoryName(Environment.CurrentDirectory);
-            string managersFolderPath = Path.Combine(currentDirectoryPath, 
+            string managersFolderPath = Path.Combine(currentDirectoryPath,
                 ConfigurationManager.AppSettings["ManagersFolderPath"]);
 
             //Scaner scaner = new Scaner(managersFolderPath);
@@ -28,20 +28,34 @@ namespace ConsoleApplication
             EFUnitOfWork genericContext = new EFUnitOfWork();
             Service service = new Service(genericContext);
 
-            SaleDTO saleDTO = new SaleDTO()
+            ICollection<SaleDTO> salesDTO = new List<SaleDTO>()
             {
-                Date = DateTime.Now,
-                Client = "Peter Jonson",
-                Product = "IPhone",
-                Cost = 550,
-                ManagerId = 1
+                new SaleDTO()
+                {
+                    Date = DateTime.Now,
+                    Client = "Bill Murray",
+                    Product = "Sony Xperia Z6",
+                    Cost = 220
+                },
+                new SaleDTO()
+                {
+                    Date = DateTime.Now,
+                    Client = "Poul Sweet",
+                    Product = "Xbox One",
+                    Cost = 445
+                }
+            };
+            ManagerDTO managerDTO = new ManagerDTO()
+            {
+                SecondName = "Lanister",
+                Sales = salesDTO,               
             };
 
-            service.AddSalesInfo(saleDTO);
+            service.HandleManagerInfo(managerDTO);
 
 
-            //ManagerDTO managerDTO = service.GetManagerDTO(1);
-            
+
+
 
             #region Close application
             Console.WriteLine("\nPress any key to close.");

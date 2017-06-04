@@ -25,6 +25,19 @@ namespace ManagerDataBase.DAL.Repositories
             return _dbContext.Sales.Find(id);
         }
 
+        public int? GetId(Func<Sale, bool> predicate)
+        {
+            var sale = _dbContext.Sales.FirstOrDefault(predicate);
+            if (sale != null)
+            {
+                return sale.Id;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public IEnumerable<Sale> GetAll()
         {
             return _dbContext.Sales.Include(x => x.Manager);

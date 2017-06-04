@@ -29,6 +29,33 @@ namespace ManagerDataBase.BLL.Services
             DataBase.SaveChanges();
         }
 
+        public void HandleManagerInfo(ManagerDTO managerDTO)
+        {
+            int? managerId = DataBase.Managers.GetId(x => x.SecondName == managerDTO.SecondName);
+            if (managerId != null)
+            {
+                Mapper.Initialize(cfg => cfg.CreateMap<SaleDTO, Sale>());
+                ICollection<Sale> sales = Mapper.Map<ICollection<SaleDTO>, ICollection<Sale>>(managerDTO.Sales);
+                foreach (Sale sale in sales)
+                {
+                    sale.ManagerId = (int)managerId;
+                    DataBase.Sales.Create(sale);
+                }
+                DataBase.SaveChanges();
+            }
+            else
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<ManagerDTO, Manager>();
+                    cfg.CreateMap<SaleDTO, Sale>();
+                });                
+                Manager manager = Mapper.Map<ManagerDTO, Manager>(managerDTO);
+                DataBase.Managers.Create(manager);
+                DataBase.SaveChanges();
+            }
+        }
+
         public ManagerDTO GetManagerDTO(int id)
         {
             var manager = DataBase.Managers.Get(id);

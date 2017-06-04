@@ -10,6 +10,7 @@ namespace ManagerDataBase.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
         T Get(int id);
+        int? GetId(Func<T, bool> predicate);
         IEnumerable<T> FindAll(Func<T, bool> predicate);
         T Find(Func<T, bool> predicate);
         void Create(T item);

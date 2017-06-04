@@ -25,14 +25,27 @@ namespace ManagerDataBase.DAL.Repositories
             return _dbContext.Managers.Find(id);
         }
 
+        public int? GetId(Func<Manager, bool> predicate)
+        {
+            var manager = _dbContext.Managers.FirstOrDefault(predicate);
+            if (manager != null)
+            {
+                return manager.Id;
+            }
+            else
+            {
+                return null;
+            }      
+        }
+
         public IEnumerable<Manager> GetAll()
         {
             return _dbContext.Managers;
         }
 
-        public void Create(Manager item)
+        public void Create(Manager manager)
         {
-            _dbContext.Managers.Add(item);
+            _dbContext.Managers.Add(manager);
         }
 
         public void Delete(int id)
