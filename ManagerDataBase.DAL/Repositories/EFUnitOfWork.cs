@@ -1,12 +1,7 @@
 ﻿using ManagerDataBase.DAL.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ManagerDataBase.DAL.Entities;
 using ManagerDataBase.DAL.EFContext;
-using ManagerDataBase.DAL.Repositories;
 
 namespace ManagerDataBase.DAL.Repositories
 {
@@ -17,13 +12,13 @@ namespace ManagerDataBase.DAL.Repositories
         private SalesRepository _salesRepository;
         private bool _disposed = false;
 
-        public EFUnitOfWork()
+        public EFUnitOfWork(string connectionString)
         {
-            _dbContext = new ManagersDBContext();
+            _dbContext = new ManagersDBContext(connectionString);
         }
 
 
-        public IRepository<Manager> Managers
+        public IRepository<ManagerEntity> Managers
         {
             get
             {
@@ -35,7 +30,7 @@ namespace ManagerDataBase.DAL.Repositories
             }
         }
 
-        public IRepository<Sale> Sales
+        public IRepository<SaleEntity> Sales
         {
             get
             {

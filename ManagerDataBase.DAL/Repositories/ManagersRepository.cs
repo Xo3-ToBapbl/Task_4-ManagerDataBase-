@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ManagerDataBase.DAL.Repositories
 {
-    class ManagersRepository : IRepository<Manager>
+    class ManagersRepository : IRepository<ManagerEntity>
     {
         private ManagersDBContext _dbContext;
 
@@ -20,12 +20,12 @@ namespace ManagerDataBase.DAL.Repositories
         }
 
 
-        public Manager Get(int id)
+        public ManagerEntity Get(int id)
         {
             return _dbContext.Managers.Find(id);
         }
 
-        public int? GetId(Func<Manager, bool> predicate)
+        public int? GetId(Func<ManagerEntity, bool> predicate)
         {
             var manager = _dbContext.Managers.FirstOrDefault(predicate);
             if (manager != null)
@@ -38,36 +38,36 @@ namespace ManagerDataBase.DAL.Repositories
             }      
         }
 
-        public IEnumerable<Manager> GetAll()
+        public IEnumerable<ManagerEntity> GetAll()
         {
             return _dbContext.Managers;
         }
 
-        public void Create(Manager manager)
+        public void Create(ManagerEntity manager)
         {
             _dbContext.Managers.Add(manager);
         }
 
         public void Delete(int id)
         {
-            Manager manager = _dbContext.Managers.Find(id);
+            ManagerEntity manager = _dbContext.Managers.Find(id);
             if (manager != null)
             {
                 _dbContext.Managers.Remove(manager);
             }
         }
 
-        public IEnumerable<Manager> FindAll(Func<Manager, bool> predicate)
+        public IEnumerable<ManagerEntity> FindAll(Func<ManagerEntity, bool> predicate)
         {
             return _dbContext.Managers.Where(predicate).ToList();
         }        
 
-        public Manager Find(Func<Manager, bool> predicate)
+        public ManagerEntity Find(Func<ManagerEntity, bool> predicate)
         {
             return _dbContext.Managers.FirstOrDefault(predicate);
         }
 
-        public void Update(Manager item)
+        public void Update(ManagerEntity item)
         {
             _dbContext.Entry(item).State = EntityState.Modified;
         }

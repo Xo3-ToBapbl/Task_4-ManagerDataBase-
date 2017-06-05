@@ -7,8 +7,8 @@
     <ProjectGuid>{1F41EC0B-083A-45AA-AB66-1651075537C5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication</RootNamespace>
-    <AssemblyName>ConsoleApplication</AssemblyName>
+    <RootNamespace>ConsolleApplication</RootNamespace>
+    <AssemblyName>ConsolleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -68,6 +68,10 @@
     <ProjectReference Include="..\ManagerDataBase.DAL\ManagerDataBase.DAL.csproj">
       <Project>{8F459960-EFA1-4A65-B757-A6A78982247F}</Project>
       <Name>ManagerDataBase.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagerDataBase.PL\ManagerDataBase.PL.csproj">
+      <Project>{F8C4F3BB-3956-4BE0-8F78-0F69111793AE}</Project>
+      <Name>ManagerDataBase.PL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

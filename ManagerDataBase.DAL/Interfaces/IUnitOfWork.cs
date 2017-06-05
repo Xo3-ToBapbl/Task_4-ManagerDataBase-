@@ -9,8 +9,8 @@ namespace ManagerDataBase.DAL.Interfaces
 {
     public interface IUnitOfWork: IDisposable
     {
-        IRepository<Manager> Managers { get; }
-        IRepository<Sale> Sales { get; }
+        IRepository<ManagerEntity> Managers { get; }
+        IRepository<SaleEntity> Sales { get; }
         void SaveChanges();
     }
 }

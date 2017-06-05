@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace ManagerDataBase.DAL.Entities
 {
-    public class Sale
+    public class SaleEntity
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -17,6 +17,6 @@ namespace ManagerDataBase.DAL.Entities
         public int Cost { get; set; }
 
         public int ManagerId { get; set; }
-        public Manager Manager { get; set; }
+        public ManagerEntity Manager { get; set; }
     }
 }

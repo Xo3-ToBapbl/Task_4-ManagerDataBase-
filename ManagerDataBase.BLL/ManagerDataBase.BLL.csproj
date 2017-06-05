@@ -48,7 +48,7 @@
     <Compile Include="DTO\SaleDTO.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\ServiceBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ManagerDataBase.DAL\ManagerDataBase.DAL.csproj">

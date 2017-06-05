@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ManagerDataBase.BLL.Interfaces
 {
-    public interface IService
+    public interface IServiceBLL
     {
-        ManagerDTO GetManagerDTO(int id);
+        void HandleManagerInfo(ManagerDTO managerDTO);
         void Dispose();
     }
 }
