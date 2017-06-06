@@ -1,4 +1,5 @@
 ﻿using ManagerDataBase.BLL.DTO;
+using ManagerDataBase.BLL.Interfaces;
 using ManagerDataBase.BLL.Services;
 using ManagerDataBase.DAL.EFContext;
 using ManagerDataBase.DAL.Entities;
@@ -6,11 +7,14 @@ using ManagerDataBase.DAL.Interfaces;
 using ManagerDataBase.DAL.Repositories;
 using ManagerDataBase.PL.Classes;
 using ManagerDataBase.PL.Services;
+using ManagerDataBase.PL.Servises;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.IO;
+using System.Reflection;
 
 namespace ConsoleApplication
 {
@@ -25,32 +29,17 @@ namespace ConsoleApplication
             string connectionString = ConfigurationManager.
                 ConnectionStrings["ManagersDataBaseConnection"].ConnectionString;
             #endregion
-            //EFUnitOfWork genericContext = new EFUnitOfWork(connectionString);
-            //ServiceBLL service = new ServiceBLL(genericContext);
+            StandardKernel _kernel = new StandardKernel
+                (new ServiceNinjectModuleBLL(connectionString), new ServiceNinjectModulePL());
 
-            //var managers = genericContext.Managers.GetAll();
+            ServicePL service = new ServicePL(_kernel.Get<IServiceBLL>());
 
-            //foreach (ManagerEntity manger in managers)
-            //    Console.WriteLine(manger.SecondName);
+            var managers = service.GetAllManagersFromBL();
 
-            ICollection<SalePL> salesPL = new List<SalePL>()
-            {
-                new SalePL()
-                {
-                    Date = DateTime.Now,
-                    Client = "Vasya Pupkin",
-                    Product = "Parasha",
-                    Cost = 220
-                }
-            };
-            ManagerPL managerPL = new ManagerPL()
-            {
-                SecondName = "Jonson",
-                Sales = salesPL
-            };
+            foreach (var manger in managers)
+                Console.WriteLine(manger.SecondName);
 
-            ServicesPL service = new ServicesPL();
-            ManagerDTO dto = service.AddToDataBase(managerPL);
+
 
             #region Close application
             Console.WriteLine("\nPress any key to close.");
@@ -98,3 +87,21 @@ namespace ConsoleApplication
 //    SecondName = "Kulagin",
 //    Sales = salesDTO,
 //};
+//ICollection<SalePL> salesPL = new List<SalePL>()
+//            {
+//                new SalePL()
+//                {
+//                    Date = DateTime.Now,
+//                    Client = "Vasya Pupkin",
+//                    Product = "Parasha",
+//                    Cost = 220
+//                }
+//            };
+//ManagerPL managerPL = new ManagerPL()
+//{
+//    SecondName = "Jonson",
+//    Sales = salesPL
+//};
+
+//ServicesPL service = new ServicesPL();
+//ManagerDTO dto = service.AddToDataBase(managerPL);

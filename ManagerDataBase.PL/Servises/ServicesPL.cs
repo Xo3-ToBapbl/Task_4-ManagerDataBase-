@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ManagerDataBase.BLL.DTO;
 using ManagerDataBase.BLL.Interfaces;
+using ManagerDataBase.DAL.Entities;
 using ManagerDataBase.PL.Classes;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace ManagerDataBase.PL.Services
 {
-    public class ServicesPL
+    public class ServicePL
     {
         private IServiceBLL _serviceBLL; 
 
-        public ServicesPL()
+        public ServicePL(IServiceBLL serviceBLL)
         {
-            //_serviceBLL = serviceBLL;
+            _serviceBLL = serviceBLL;
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<ManagerPL, ManagerDTO>();
@@ -29,6 +30,11 @@ namespace ManagerDataBase.PL.Services
         {
             ManagerDTO managerDTO = Mapper.Map<ManagerPL, ManagerDTO>(managerPL);
             return managerDTO;
+        }
+
+        public IEnumerable<ManagerEntity> GetAllManagersFromBL()
+        {
+            return _serviceBLL.GetAllManagers();
         }
     }
 }

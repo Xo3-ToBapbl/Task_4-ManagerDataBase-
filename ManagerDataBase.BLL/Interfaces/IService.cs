@@ -1,4 +1,5 @@
 ﻿using ManagerDataBase.BLL.DTO;
+using ManagerDataBase.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ManagerDataBase.BLL.Interfaces
     public interface IServiceBLL
     {
         void HandleManagerInfo(ManagerDTO managerDTO);
+        IEnumerable<ManagerEntity> GetAllManagers();
         void Dispose();
     }
 }

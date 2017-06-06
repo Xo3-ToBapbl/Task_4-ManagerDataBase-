@@ -23,6 +23,11 @@ namespace ManagerDataBase.BLL.Services
         IUnitOfWork DataBase { get; set; }
 
 
+        public IEnumerable<ManagerEntity> GetAllManagers()
+        {
+            return DataBase.Managers.GetAll();
+        }
+
         public void HandleManagerInfo(ManagerDTO managerDTO)
         {
             int? managerId = DataBase.Managers.GetId(x => x.SecondName == managerDTO.SecondName);
