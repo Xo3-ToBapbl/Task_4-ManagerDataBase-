@@ -25,16 +25,10 @@ namespace ManagerDataBase.PL.Services
             });
         }
 
-
-        public ManagerDTO AddToDataBase(ManagerPL managerPL)
+        public void AddToDataBase(ManagerPL managerPL)
         {
             ManagerDTO managerDTO = Mapper.Map<ManagerPL, ManagerDTO>(managerPL);
-            return managerDTO;
-        }
-
-        public IEnumerable<ManagerEntity> GetAllManagersFromBL()
-        {
-            return _serviceBLL.GetAllManagers();
+            _serviceBLL.HandleManagerInfo(managerDTO);
         }
     }
 }

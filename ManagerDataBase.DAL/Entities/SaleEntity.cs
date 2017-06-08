@@ -17,6 +17,6 @@ namespace ManagerDataBase.DAL.Entities
         public int Cost { get; set; }
 
         public int ManagerId { get; set; }
-        public ManagerEntity Manager { get; set; }
+        public virtual ManagerEntity Manager { get; set; }
     }
 }

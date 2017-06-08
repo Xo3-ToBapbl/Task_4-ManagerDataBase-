@@ -13,20 +13,9 @@ namespace ManagerDataBase.BLL.Services
         public ServiceBLL(IUnitOfWork unitOfWork)
         {
             DataBase = unitOfWork;
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<ManagerDTO, ManagerEntity>();
-                cfg.CreateMap<SaleDTO, SaleEntity>();
-            });
         }
 
         IUnitOfWork DataBase { get; set; }
-
-
-        public IEnumerable<ManagerEntity> GetAllManagers()
-        {
-            return DataBase.Managers.GetAll();
-        }
 
         public void HandleManagerInfo(ManagerDTO managerDTO)
         {
@@ -39,10 +28,16 @@ namespace ManagerDataBase.BLL.Services
             {
                 AddNewManager(managerDTO);
             }
+            DataBase.Dispose();
         }
 
         private void AddSalesInfo(ManagerDTO managerDTO, int managerId)
-        {           
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<SaleDTO, SaleEntity>().
+                ForMember(dest => dest.Manager, option => option.Ignore());
+            });
             ICollection<SaleEntity> sales = Mapper.Map<ICollection<SaleDTO>, ICollection<SaleEntity>>(managerDTO.Sales);
             foreach (SaleEntity sale in sales)
             {
@@ -54,6 +49,13 @@ namespace ManagerDataBase.BLL.Services
 
         private void AddNewManager(ManagerDTO managerDTO)
         {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<SaleDTO, SaleEntity>().
+                ForMember(dest => dest.Manager, option => option.Ignore());
+                cfg.CreateMap<ManagerDTO, ManagerEntity>();
+            });
+            Mapper.AssertConfigurationIsValid();
             ManagerEntity manager = Mapper.Map<ManagerDTO, ManagerEntity>(managerDTO);
             DataBase.Managers.Create(manager);
             DataBase.SaveChanges();

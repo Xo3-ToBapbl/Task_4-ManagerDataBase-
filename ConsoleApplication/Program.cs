@@ -1,4 +1,5 @@
-﻿using ManagerDataBase.BLL.DTO;
+﻿using AutoMapper;
+using ManagerDataBase.BLL.DTO;
 using ManagerDataBase.BLL.Interfaces;
 using ManagerDataBase.BLL.Services;
 using ManagerDataBase.DAL.EFContext;
@@ -29,15 +30,68 @@ namespace ConsoleApplication
             string connectionString = ConfigurationManager.
                 ConnectionStrings["ManagersDataBaseConnection"].ConnectionString;
             #endregion
-            StandardKernel _kernel = new StandardKernel
-                (new ServiceNinjectModuleBLL(connectionString), new ServiceNinjectModulePL());
+            #region Fulltest
+            StandardKernel kernel = new StandardKernel
+                (new ServiceNinjectModulePL(), new ServiceNinjectModuleBLL(connectionString));
+            ServicePL service = new ServicePL(kernel.Get<IServiceBLL>());
+            ICollection<SalePL> salesPL = new List<SalePL>()
+            {
+                new SalePL()
+                {
+                    Date = DateTime.Now,
+                    Client = "Patrick Viewer",
+                    Product = "Philips LM12",
+                    Cost = 220
+                },
+                new SalePL()
+                {
+                    Date = DateTime.Now,
+                    Client = "Infy Yaroshik",
+                    Product = "LG G2",
+                    Cost = 335
+                },
+            };
+            ManagerPL managerPL = new ManagerPL()
+            {
+                SecondName = "Petrov",
+                Sales = salesPL,
+            };
+            service.AddToDataBase(managerPL);
+            #endregion
 
-            ServicePL service = new ServicePL(_kernel.Get<IServiceBLL>());
+            #region ManagerDTO
+            //ICollection<SaleDTO> salesDTO = new List<SaleDTO>()
+            //{
+            //    new SaleDTO()
+            //    {
+            //        Date = DateTime.Now,
+            //        Client = "Patrick Viewer",
+            //        Product = "Philips LM12",
+            //        Cost = 220
+            //    },
+            //    new SaleDTO()
+            //    {
+            //        Date = DateTime.Now,
+            //        Client = "Infy Yaroshik",
+            //        Product = "LG G2",
+            //        Cost = 335
+            //    },
+            //};
+            //ManagerDTO managerDTO = new ManagerDTO()
+            //{
+            //    SecondName = "Navik",
+            //    Sales = salesDTO,
+            //};
 
-            var managers = service.GetAllManagersFromBL();
-
-            foreach (var manger in managers)
-                Console.WriteLine(manger.SecondName);
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMap<SaleDTO, SaleEntity>().
+            //    ForMember(dest => dest.Manager, option => option.Ignore());
+            //    cfg.CreateMap<ManagerDTO, ManagerEntity>();
+            //});
+            //Mapper.AssertConfigurationIsValid();
+            //ManagerEntity managerEntity = Mapper.Map<ManagerDTO, ManagerEntity>(managerDTO);
+            #endregion
 
 
 
