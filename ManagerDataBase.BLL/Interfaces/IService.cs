@@ -11,6 +11,5 @@ namespace ManagerDataBase.BLL.Interfaces
     public interface IServiceBLL
     {
         void HandleManagerInfo(ManagerDTO managerDTO);
-        void Dispose();
     }
 }

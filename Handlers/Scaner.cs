@@ -66,6 +66,9 @@ namespace ManagerDataBase.BL
                 Console.WriteLine("Scaner suspend.\n");
                 _timer.Change(Timeout.Infinite, 0);
                 HandleFiles();
+                Console.WriteLine("Scaner start.\n");
+                _filesPaths.Clear();
+                _timer.Change(0, 1000);
             }
         }
 
@@ -75,10 +78,7 @@ namespace ManagerDataBase.BL
             {
                 _parser.Parse(filePath);
                 File.Delete(filePath);
-            }
-            Console.WriteLine("Scaner start.\n");
-            _filesPaths.Clear();
-            _timer.Change(0, 1000);
+            }          
         }
     }
 }

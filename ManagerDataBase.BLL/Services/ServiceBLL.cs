@@ -5,49 +5,60 @@ using ManagerDataBase.BLL.DTO;
 using ManagerDataBase.DAL.Interfaces;
 using AutoMapper;
 using ManagerDataBase.DAL.Entities;
+using System.Threading;
+using System;
+using Ninject;
 
 namespace ManagerDataBase.BLL.Services
 {
     public class ServiceBLL : IServiceBLL
     {
-        public ServiceBLL(IUnitOfWork unitOfWork)
+        private StandardKernel _kernel;
+
+        public ServiceBLL(string connectionString)
         {
-            DataBase = unitOfWork;
+            _kernel = new StandardKernel(new ServiceNinjectModuleBLL(connectionString));
         }
 
-        IUnitOfWork DataBase { get; set; }
 
         public void HandleManagerInfo(ManagerDTO managerDTO)
         {
+            IUnitOfWork DataBase = _kernel.Get<IUnitOfWork>();
+
             int? managerId = DataBase.Managers.GetId(x => x.SecondName == managerDTO.SecondName);
             if (managerId != null)
             {
-                AddSalesInfo(managerDTO, (int)managerId);
+                AddSalesInfo(managerDTO, (int)managerId, DataBase);
             }
             else
             {
-                AddNewManager(managerDTO);
+                AddNewManager(managerDTO, DataBase);
             }
             DataBase.Dispose();
         }
 
-        private void AddSalesInfo(ManagerDTO managerDTO, int managerId)
+        private void AddSalesInfo(ManagerDTO managerDTO, int managerId, IUnitOfWork DataBase)
         {
-            Mapper.Initialize(cfg =>
+            
+            if (managerDTO.Sales.Count != 0)
             {
-                cfg.CreateMap<SaleDTO, SaleEntity>().
-                ForMember(dest => dest.Manager, option => option.Ignore());
-            });
-            ICollection<SaleEntity> sales = Mapper.Map<ICollection<SaleDTO>, ICollection<SaleEntity>>(managerDTO.Sales);
-            foreach (SaleEntity sale in sales)
-            {
-                sale.ManagerId = (int)managerId;
-                DataBase.Sales.Create(sale);
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<SaleDTO, SaleEntity>().
+                    ForMember(dest => dest.Manager, option => option.Ignore());
+                });
+                ICollection<SaleEntity> sales = Mapper.Map<ICollection<SaleDTO>, ICollection<SaleEntity>>(managerDTO.Sales);
+
+                foreach (SaleEntity sale in sales)
+                {
+                    sale.ManagerId = (int)managerId;
+                    DataBase.Sales.Create(sale);
+                }
+                DataBase.SaveChanges();
             }
-            DataBase.SaveChanges();
         }
 
-        private void AddNewManager(ManagerDTO managerDTO)
+        private void AddNewManager(ManagerDTO managerDTO, IUnitOfWork DataBase)
         {
             Mapper.Initialize(cfg =>
             {
@@ -59,12 +70,6 @@ namespace ManagerDataBase.BLL.Services
             ManagerEntity manager = Mapper.Map<ManagerDTO, ManagerEntity>(managerDTO);
             DataBase.Managers.Create(manager);
             DataBase.SaveChanges();
-        }
-
-
-        public void Dispose()
-        {
-            DataBase.Dispose();
         }
     }
 }
