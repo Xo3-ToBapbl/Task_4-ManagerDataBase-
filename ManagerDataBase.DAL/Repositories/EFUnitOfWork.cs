@@ -53,6 +53,7 @@ namespace ManagerDataBase.DAL.Repositories
             _dbContext.SaveChanges();
         }
 
+
         #region Disposing
         protected virtual void Dispose(bool disposing)
         {

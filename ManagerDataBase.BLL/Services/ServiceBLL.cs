@@ -1,12 +1,9 @@
 ﻿using ManagerDataBase.BLL.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using ManagerDataBase.BLL.DTO;
 using ManagerDataBase.DAL.Interfaces;
 using AutoMapper;
 using ManagerDataBase.DAL.Entities;
-using System.Threading;
-using System;
 using Ninject;
 
 namespace ManagerDataBase.BLL.Services
@@ -28,7 +25,6 @@ namespace ManagerDataBase.BLL.Services
         {
             DataBase.CreateDataBase();
         }
-
 
         public void HandleManagerInfo(ManagerDTO managerDTO)
         {

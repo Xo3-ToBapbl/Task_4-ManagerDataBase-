@@ -1,4 +1,4 @@
-﻿namespace WindowsServiceApplication
+﻿namespace ManagersWindowsService
 {
     partial class Installer
     {

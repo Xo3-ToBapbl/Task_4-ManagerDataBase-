@@ -108,9 +108,15 @@ namespace ManagerDataBase.PL.Services
             if (_scannedFolderPath != null)
             {
                 Console.WriteLine("Application working. Press any key to close application.\n");
+
                 _timerCallBack = new TimerCallback(Scan);
                 _timer = new Timer(_timerCallBack, _scannedFolderPath, 0, 1000);
             }            
+        }
+
+        public void Stop()
+        {
+            _timer.Dispose();
         }
 
         private void CheckDataBase()
@@ -128,7 +134,7 @@ namespace ManagerDataBase.PL.Services
                 Parallel.ForEach(_filesPaths, _parser.Parse);
                 _managersFiles = _parser.ManagersPL.Values;
 
-                Parallel.ForEach(_managersFiles, HandleFiles);
+                Parallel.ForEach(_managersFiles, ProcessManagers);
 
                 _filesPaths.Clear();
                 _parser.ManagersPL.Clear();
@@ -137,7 +143,7 @@ namespace ManagerDataBase.PL.Services
             }
         }
 
-        private void HandleFiles(ManagerPL managerPL)
+        private void ProcessManagers(ManagerPL managerPL)
         {          
             AddToDataBase(managerPL);
 
@@ -167,8 +173,7 @@ namespace ManagerDataBase.PL.Services
                 return null;
             }
         }
-
-
+  
         private void AddToDataBase(ManagerPL managerPL)
         {
             Mapper.Initialize(cfg =>
@@ -178,7 +183,6 @@ namespace ManagerDataBase.PL.Services
             });
             ManagerDTO managerDTO = Mapper.Map<ManagerPL, ManagerDTO>(managerPL);
             _serviceBLL.HandleManagerInfo(managerDTO);
-
         }
     }
 }

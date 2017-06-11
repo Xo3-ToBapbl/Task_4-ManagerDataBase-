@@ -1,4 +1,4 @@
-﻿namespace WindowsServiceApplication
+﻿namespace ManagersWindowsService
 {
     partial class Service1
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "ManagerDataBase";
+            this.ServiceName = "ManagersService";
         }
 
         #endregion

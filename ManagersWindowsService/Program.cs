@@ -5,13 +5,10 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsServiceApplication
+namespace ManagersWindowsService
 {
     static class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
         static void Main()
         {
             ServiceBase[] ServicesToRun;
