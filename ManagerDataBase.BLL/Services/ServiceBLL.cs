@@ -15,9 +15,18 @@ namespace ManagerDataBase.BLL.Services
     {
         private StandardKernel _kernel;
 
+        public IUnitOfWork DataBase { get; set; }
+
         public ServiceBLL(string connectionString)
         {
             _kernel = new StandardKernel(new ServiceNinjectModuleBLL(connectionString));
+            DataBase = _kernel.Get<IUnitOfWork>();
+        }
+
+
+        public void CheckDataBase()
+        {
+            DataBase.CreateDataBase();
         }
 
 

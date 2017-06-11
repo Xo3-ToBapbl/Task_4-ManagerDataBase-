@@ -12,5 +12,6 @@ namespace ManagerDataBase.DAL.Interfaces
         IRepository<ManagerEntity> Managers { get; }
         IRepository<SaleEntity> Sales { get; }
         void SaveChanges();
+        void CreateDataBase();
     }
 }

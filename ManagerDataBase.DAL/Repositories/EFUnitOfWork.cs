@@ -42,6 +42,11 @@ namespace ManagerDataBase.DAL.Repositories
             }
         }
 
+        public void CreateDataBase()
+        {
+            _dbContext.Database.CreateIfNotExists();
+            Console.WriteLine("Database is ready to work.");
+        }
 
         public void SaveChanges()
         {

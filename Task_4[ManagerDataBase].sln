@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerDataBase.BLL", "Mana
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerDataBase.PL", "ManagerDataBase.PL\ManagerDataBase.PL.csproj", "{F8C4F3BB-3956-4BE0-8F78-0F69111793AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handlers", "Handlers\Handlers.csproj", "{A9213984-15D4-4B56-BC6F-14F98DEAE027}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{F8C4F3BB-3956-4BE0-8F78-0F69111793AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C4F3BB-3956-4BE0-8F78-0F69111793AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C4F3BB-3956-4BE0-8F78-0F69111793AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9213984-15D4-4B56-BC6F-14F98DEAE027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9213984-15D4-4B56-BC6F-14F98DEAE027}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9213984-15D4-4B56-BC6F-14F98DEAE027}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9213984-15D4-4B56-BC6F-14F98DEAE027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
