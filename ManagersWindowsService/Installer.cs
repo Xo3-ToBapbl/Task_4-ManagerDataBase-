@@ -21,6 +21,7 @@ namespace ManagersWindowsService
             serviceInstaller = new ServiceInstaller();
             processInstaller = new ServiceProcessInstaller();
 
+            
             processInstaller.Account = ServiceAccount.LocalSystem;
             serviceInstaller.StartType = ServiceStartMode.Manual;
             serviceInstaller.ServiceName = "ManagersService";

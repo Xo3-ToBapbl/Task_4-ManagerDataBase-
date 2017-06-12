@@ -93,16 +93,16 @@ namespace ManagerDataBase.PL.Services
             ScannedFolderPath = ConfigurationManager.AppSettings["ManagersFolderPath"];
             ProcessedFilesFolderPath = ConfigurationManager.AppSettings["ManagersProcessedFilesFolderPath"];
             ErrorFilesFolderPath = ConfigurationManager.AppSettings["ManagersErrorFilesFolderPath"];
-
-            _kernel = new StandardKernel(new ServiceNinjectModulePL(_connectionString));
+                        
             _parser = new Parser(ErrorFilesFolderPath);
-
+            _kernel = new StandardKernel(new ServiceNinjectModulePL(_connectionString));
             _serviceBLL = _kernel.Get<IServiceBLL>();
         }
 
 
         public void Start()
         {
+            
             Console.WriteLine("Preparing database, please do not close application.");
             CheckDataBase();         
             if (_scannedFolderPath != null)
