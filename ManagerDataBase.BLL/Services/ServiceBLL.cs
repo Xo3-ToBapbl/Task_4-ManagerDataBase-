@@ -24,6 +24,7 @@ namespace ManagerDataBase.BLL.Services
         public void CheckDataBase()
         {
             DataBase.CreateDataBase();
+            DataBase.Dispose();
         }
 
         public void HandleManagerInfo(ManagerDTO managerDTO)

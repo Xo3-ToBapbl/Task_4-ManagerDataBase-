@@ -2,6 +2,7 @@
 using System;
 using ManagerDataBase.DAL.Entities;
 using ManagerDataBase.DAL.EFContext;
+using System.Threading;
 
 namespace ManagerDataBase.DAL.Repositories
 {
@@ -44,8 +45,30 @@ namespace ManagerDataBase.DAL.Repositories
 
         public void CreateDataBase()
         {
-            _dbContext.Database.CreateIfNotExists();
-            Console.WriteLine("Database is ready to work.");
+            bool flag = true;
+            try
+            {               
+                _dbContext.Database.CreateIfNotExists();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Can't create or connect to database: {0}", e.Message);
+                flag = false;
+            }
+            finally
+            {
+                if (flag)
+                {
+                    Console.WriteLine("Database is ready to work.");
+                }
+                else
+                {
+                    Console.WriteLine("Check 'connectionString' in AppConfig and start again.");
+                    Thread.Sleep(10000);
+                    Environment.Exit(0);
+                }
+            }
+            
         }
 
         public void SaveChanges()
